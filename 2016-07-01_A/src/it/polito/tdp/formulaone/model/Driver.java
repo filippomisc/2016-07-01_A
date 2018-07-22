@@ -14,6 +14,12 @@ public class Driver {
 	private String nationality;
 	private String url;
 
+
+
+	public Driver() {
+		
+	}
+	
 	public Driver(int driverId, String driverRef, int number, String code, String forename, String surname,
 			LocalDate dob, String nationality, String url) {
 		super();
@@ -26,6 +32,13 @@ public class Driver {
 		this.dob = dob;
 		this.nationality = nationality;
 		this.url = url;
+	}
+	
+	public Driver(int driverId, String forename, String surname) {
+		this.driverId = driverId;
+		this.forename = forename;
+		this.surname = surname;
+		
 	}
 
 	public int getDriverId() {
