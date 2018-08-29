@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.Year;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.formulaone.model.Driver;
 import it.polito.tdp.formulaone.model.Model;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class FormulaOneController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	try {
     	
     	Year anno = Year.of(this.boxAnno.getValue());
     	
@@ -45,6 +47,15 @@ public class FormulaOneController {
   
     	
     	model.createGraph(anno);
+		Driver best = model.getBestDriverOf();
+				
+		this.txtResult.setText(String.format("Il miglior pilota della stagione %d è %s %s (%s)", 
+				this.boxAnno.getValue(), best.getForename(), best.getSurname(), best.getNationality()));
+    	} catch (RuntimeException e) {
+			e.printStackTrace();
+			System.out.println("Errorre di connessione al DB");
+			txtResult.setText("Errore di connessine al DB!");
+		}
     }
 
     @FXML

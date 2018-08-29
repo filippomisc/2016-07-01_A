@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
@@ -50,8 +51,9 @@ public class Model {
 				if(!d1.equals(d2)) {//inserire un if per evitare che crei il grafo con peso = 0
 					
 					int peso = dao.getDriverPair(anno, d1.getDriverId(), d2.getDriverId());
-					
-					Graphs.addEdge(this.graph, d1, d2, peso);
+					if(peso!=0) 
+						Graphs.addEdge(this.graph, d1, d2, peso);
+						
 					
 					
 					System.out.println(d1.getDriverId() + " "+ d2.getDriverId() + " " + peso);
@@ -61,16 +63,39 @@ public class Model {
 			
 			
 		}
-		System.out.println("Archi: " + this.graph.edgeSet().size());
-
-		
-			
-			
-			
+		System.out.println("Archi: " + this.graph.edgeSet().size());	
 		}
 	
 	
-	
+	public Driver getBestDriverOf() {
+		
+		Driver result = null;
+		int migliore = Integer.MIN_VALUE;
+		
+		for(Driver driver : this.graph.vertexSet()) {
+			int sum = 0;
+			// Itero sugli archi uscenti
+			for (DefaultWeightedEdge e : graph.outgoingEdgesOf(driver)) {
+				sum += graph.getEdgeWeight(e);
+			}
+			
+			// Itero sugli archi entranti
+			for (DefaultWeightedEdge e : graph.incomingEdgesOf(driver)) {
+				sum -= graph.getEdgeWeight(e);
+			}
+			
+		
+		if(sum > migliore || result == null) {
+			result = driver;
+			migliore =sum;
+			
+			if(result == null)
+				throw new RuntimeException("BestDriver not found!");
+		}
+		}
+		return result;
+		
+	}
 
 
 }

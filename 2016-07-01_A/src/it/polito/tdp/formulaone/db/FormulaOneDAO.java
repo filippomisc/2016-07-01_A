@@ -175,14 +175,14 @@ drivers.add(new Driver(rs.getInt("driverId"),
 				"and races.year = ? " + 
 				"and r1.position is not null " + 
 				"and r2.position is not null " + 
-				"and r1.position < r2.position ";
+				"and r1.position<r2.position";
 
 				try {
 					Connection conn = ConnectDB.getConnection();
 
 					PreparedStatement st = conn.prepareStatement(sql);
 					st.setInt(1, driverId1);
-					st.setInt(2, driverId1);
+					st.setInt(2, driverId2);
 					st.setInt(3, anno.getValue());
 					
 				

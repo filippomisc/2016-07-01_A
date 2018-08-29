@@ -8,8 +8,13 @@ public class TestModel {
 		
 		Model m = new Model();
 		
-		m.createGraph(Year.of(2006));
+		int season = 2016;
 		
+		m.createGraph(Year.of(season));
+		
+		Driver best = m.getBestDriverOf();
+		
+		System.out.println(String.format("Il miglior pilota della stagione %d è %s %s (%s)", season, best.getForename(), best.getSurname(), best.getNationality()));
 	}
 
 }
