@@ -176,6 +176,17 @@ drivers.add(new Driver(rs.getInt("driverId"),
 				"and r1.position is not null " + 
 				"and r2.position is not null " + 
 				"and r1.position<r2.position";
+		
+		//QUERY COMPLETA
+		/*select r1.driverId as d1, r2.driverId as d2, count(*) as cnt
+		from results as r1, results as r2, races
+		where r1.raceId = r2.raceId
+		and races.raceId = r1.raceId
+		and races.year = 2006
+		and r1.position is not null
+		and r2.position is not null
+		and r1.position < r2.position
+		group by d1, d2*/
 
 				try {
 					Connection conn = ConnectDB.getConnection();
